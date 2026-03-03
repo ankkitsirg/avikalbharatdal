@@ -19,11 +19,32 @@ export default function Join() {
     });
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    alert("Form submitted (Database not connected yet)");
-    console.log(form);
-  };
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+
+  const res = await fetch("/api/join", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(form),
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    alert("Registration successful!");
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      district: "",
+      volunteer: false,
+    });
+  } else {
+    alert(data.error || "Something went wrong");
+  }
+};
 
   return (
     <main className="py-16 px-6 md:px-20">
