@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 import pool from "@/lib/db";
 import bcrypt from "bcrypt";
 
-const handler = NextAuth({
+export const { handlers, auth } = NextAuth({
   providers: [
-    CredentialsProvider({
+    Credentials({
       name: "Credentials",
       credentials: {
         email: {},
@@ -17,7 +17,7 @@ const handler = NextAuth({
           [credentials?.email]
         );
 
-        if (result.rows.length === 0) return null;
+        if (!result.rows.length) return null;
 
         const user = result.rows[0];
 
@@ -37,22 +37,22 @@ const handler = NextAuth({
       },
     }),
   ],
+  session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role;
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      session.user.role = token.role;
+      session.user.role = token.role as string;
+      session.user.id = token.id as number;
       return session;
     },
-  },
-  session: {
-    strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
 });
 
-export { handler as GET, handler as POST };
+export const { GET, POST } = handlers;
