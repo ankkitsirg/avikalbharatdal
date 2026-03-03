@@ -1,5 +1,4 @@
-import { getServerSession } from "next-auth";
-import { auth } from "@/app/api/auth/[...nextauth]/route";
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export default async function Admin() {
@@ -11,15 +10,8 @@ export default async function Admin() {
 
   return (
     <main className="p-10">
-      <h1 className="text-3xl font-bold mb-6">
-        Welcome, {session.user?.name}
-      </h1>
-
-      <p className="mb-4">
-        Role: {session.user?.role}
-      </p>
-
-      <p>Admin dashboard content here.</p>
+      <h1>Welcome, {session.user?.name}</h1>
+      <p>Role: {session.user?.role}</p>
     </main>
   );
 }
