@@ -1,27 +1,38 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
-import MembersTable from "./MembersTable"; // client component
+"use client";
 
-export default async function AdminPage() {
-  const session = await getServerSession(authOptions);
+import { useEffect, useState } from "react";
 
-  if (!session) {
-    redirect("/login");
-  }
+export default function Admin() {
+  const [members, setMembers] = useState([]);
 
-  // Fetch members from DB on server
-  const res = await fetch("/api/members");
-  const members = await res.json();
+  useEffect(() => {
+    fetch("/api/members")
+      .then((res) => res.json())
+      .then((data) => setMembers(data));
+  }, []);
 
   return (
     <main className="p-10">
-      <h1 className="text-3xl font-bold mb-6">
-        Welcome, {session.user?.name}
-      </h1>
-      <p>Role: {session.user?.role}</p>
+      <h1 className="text-3xl font-bold mb-6">Registered Members</h1>
 
-      <MembersTable initialMembers={members} />
+      <table className="w-full border">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="p-2 border">Name</th>
+            <th className="p-2 border">Phone</th>
+            <th className="p-2 border">District</th>
+          </tr>
+        </thead>
+        <tbody>
+          {members.map((m: any, i) => (
+            <tr key={i}>
+              <td className="p-2 border">{m.name}</td>
+              <td className="p-2 border">{m.phone}</td>
+              <td className="p-2 border">{m.district}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </main>
   );
 }
