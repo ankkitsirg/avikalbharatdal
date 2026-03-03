@@ -11,7 +11,7 @@ export default async function AdminPage() {
   }
 
   // Fetch members from DB on server
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/members`);
+  const res = await fetch("/api/members");
   const members = await res.json();
 
   return (
