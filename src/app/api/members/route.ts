@@ -11,7 +11,7 @@ export async function GET() {
   }
 
   const result = await pool.query(
-    "SELECT name, phone, district FROM members ORDER BY created_at DESC"
+    "SELECT name, phone, district,payment_screenshot, payment_status FROM members ORDER BY created_at DESC"
   );
 
   return NextResponse.json(result.rows);
