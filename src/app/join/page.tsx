@@ -176,7 +176,7 @@ export default function Join() {
         <label className="flex items-start space-x-2 text-sm">
           <input type="checkbox" required />
           <span>
-            I agree to share my data with the party as per the Privacy Policy.
+            I agree to share my data with the party (as per the Privacy Policy).
           </span>
         </label>
 
