@@ -210,7 +210,7 @@ export default function Join() {
           disabled={loading}
           className="w-full bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition"
         >
-          {loading ? "Submitting..." : "Submit Registration"}
+          {loading ? "Submiting..." : "Submit Registration"}
         </button>
 
       </form>
