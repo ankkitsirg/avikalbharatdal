@@ -3,7 +3,7 @@ import pool from "@/lib/db";
 
 export async function POST(req: Request) {
     try {
-        const { name, phone, email, district, volunteer, paymentScreenshot } = await req.json();
+        const { name, phone, email, district, volunteer, payment_screenshot } = await req.json();
 
         if (!name || !phone || !district) {
             return NextResponse.json(
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   INSERT INTO members (name, phone, email, district, volunteer, payment_screenshot)
 VALUES ($1, $2, $3, $4, $5, $6)
     `,
-            [name.trim(), phone.trim(), email?.trim() || null, district.trim(), volunteer, paymentScreenshot]
+            [name.trim(), phone.trim(), email?.trim() || null, district.trim(), volunteer, payment_screenshot]
         );
 
         return NextResponse.json({ message: "Member registered successfully" });
