@@ -13,6 +13,7 @@ export default function Join() {
   });
 
   const [screenshot, setScreenshot] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
@@ -27,6 +28,12 @@ export default function Join() {
     const file = e.target.files[0];
 
     if (!file) return;
+
+    // limit image size to 2MB
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Image must be smaller than 2MB");
+      return;
+    }
 
     const reader = new FileReader();
 
@@ -45,6 +52,8 @@ export default function Join() {
       return;
     }
 
+    setLoading(true);
+
     const res = await fetch("/api/join", {
       method: "POST",
       headers: {
@@ -57,6 +66,8 @@ export default function Join() {
     });
 
     const data = await res.json();
+
+    setLoading(false);
 
     if (res.ok) {
       alert("Registration submitted! Waiting for payment verification.");
@@ -155,6 +166,10 @@ export default function Join() {
             alt="UPI QR"
             className="mx-auto w-56 border rounded-lg"
           />
+
+          <p className="text-sm text-gray-500">
+            UPI ID: avikalbharatdal@upi
+          </p>
         </div>
 
         {/* Upload Screenshot */}
@@ -170,9 +185,18 @@ export default function Join() {
             onChange={handleFileChange}
             className="w-full border p-2 rounded"
           />
+
+          {/* Preview */}
+          {screenshot && (
+            <img
+              src={screenshot}
+              alt="Payment preview"
+              className="mt-4 w-40 mx-auto border rounded"
+            />
+          )}
         </div>
 
-        {/* Privacy Policy */}
+        {/* Privacy */}
         <label className="flex items-start space-x-2 text-sm">
           <input type="checkbox" required />
           <span>
@@ -183,9 +207,10 @@ export default function Join() {
         {/* Submit */}
         <button
           type="submit"
+          disabled={loading}
           className="w-full bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition"
         >
-          Submit Registration
+          {loading ? "Submitting..." : "Submit Registration"}
         </button>
 
       </form>
