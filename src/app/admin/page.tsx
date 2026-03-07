@@ -7,6 +7,8 @@ export default function Admin() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const updateStatus = async (id: number, status: string) => {
+    console.log('id=',id);
+    console.log('status=',status);
     await fetch("/api/members/update-status", {
       method: "POST",
       headers: {
