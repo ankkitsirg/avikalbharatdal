@@ -7,17 +7,22 @@ export default function Admin() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const updateStatus = async (id: number, status: string) => {
-    console.log('id=',id);
-    console.log('status=',status);
-    await fetch("/api/members/update-status", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id, status }),
-    });
+    //console.log('id=',id);
+    //console.log('status=',status);
+    const res = await fetch("/api/members/update-status", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, status }),
+  });
 
-    //location.reload();
+  if (!res.ok) {
+    alert("Failed to update status");
+    return;
+  }
+
+    location.reload();
   };
   useEffect(() => {
     fetch("/api/members")
@@ -65,6 +70,7 @@ export default function Admin() {
               <td className="p-2 border space-x-2">
 
                 <button
+                 disabled={m.payment_status === "approved"}
                   onClick={() => updateStatus(m.id, "approved")}
                   className="bg-green-600 text-white px-2 py-1 rounded"
                 >
@@ -72,6 +78,7 @@ export default function Admin() {
                 </button>
 
                 <button
+                 disabled={m.payment_status === "rejected"}
                   onClick={() => updateStatus(m.id, "rejected")}
                   className="bg-red-600 text-white px-2 py-1 rounded"
                 >
