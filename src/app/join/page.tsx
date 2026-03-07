@@ -94,7 +94,7 @@ export default function Join() {
 
       <form
         onSubmit={handleSubmit}
-        className="max-w-2xl mx-auto bg-white shadow-md p-8 rounded-lg space-y-6"
+        className="max-w-2xl text-black mx-auto bg-white shadow-md p-8 rounded-lg space-y-6"
       >
 
         {/* Name */}
