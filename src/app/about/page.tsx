@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <main className="py-16 px-6 md:px-20 bg-gray-100">
+    <main className="py-16 px-6 md:px-20 bg-gray-100 text-black">
       <h1 className="text-4xl font-bold mb-6 text-center">
         About Avikal Bharat Dal
       </h1>

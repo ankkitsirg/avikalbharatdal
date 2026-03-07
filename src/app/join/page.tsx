@@ -87,7 +87,7 @@ export default function Join() {
   };
 
   return (
-    <main className="py-16 px-6 md:px-20 bg-gray-100">
+    <main className="py-16 px-6 md:px-20 bg-gray-100 text-black">
       <h1 className="text-4xl font-bold text-center mb-10">
         Join Avikal Bharat Dal
       </h1>

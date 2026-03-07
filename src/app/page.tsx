@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-gray-800">
+    <main className="min-h-screen bg-white text-gray-800 text-black">
       
       {/* Hero Section */}
       <section className="bg-orange-600 text-white py-20 text-center">
