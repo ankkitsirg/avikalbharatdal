@@ -15,7 +15,7 @@ export default function Admin() {
       body: JSON.stringify({ id, status }),
     });
 
-    location.reload();
+    //location.reload();
   };
   useEffect(() => {
     fetch("/api/members")
