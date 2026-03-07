@@ -15,8 +15,6 @@ export default function Admin() {
   const [page, setPage] = useState(1);
   const perPage = 10;
 
-  // ---------------- FETCH MEMBERS ----------------
-
   const fetchMembers = async () => {
     const res = await fetch("/api/members");
     const data = await res.json();
@@ -26,8 +24,6 @@ export default function Admin() {
   useEffect(() => {
     fetchMembers();
   }, []);
-
-  // ---------------- UPDATE STATUS ----------------
 
   const updateStatus = async (id: number, status: string) => {
 
@@ -51,8 +47,6 @@ export default function Admin() {
     );
   };
 
-  // ---------------- FILTER + SEARCH ----------------
-
   const filteredMembers = members.filter((m) => {
 
     const phoneMatch = m.phone.includes(search);
@@ -63,16 +57,12 @@ export default function Admin() {
     return phoneMatch && statusMatch;
   });
 
-  // ---------------- PAGINATION ----------------
-
   const totalPages = Math.ceil(filteredMembers.length / perPage);
 
   const paginatedMembers = filteredMembers.slice(
     (page - 1) * perPage,
     page * perPage
   );
-
-  // ---------------- DASHBOARD COUNTS ----------------
 
   const totalMembers = members.length;
 
@@ -87,8 +77,6 @@ export default function Admin() {
   const rejectedMembers = members.filter(
     (m) => m.payment_status === "rejected"
   ).length;
-
-  // ---------------- EXPORT EXCEL ----------------
 
   const exportExcel = () => {
 
@@ -116,8 +104,6 @@ export default function Admin() {
     saveAs(file, "members.xlsx");
   };
 
-  // ---------------- STATUS BADGE ----------------
-
   const badge = (status: string) => {
 
     if (status === "approved")
@@ -130,62 +116,66 @@ export default function Admin() {
   };
 
   return (
-    <main className="p-8 bg-gray-50 min-h-screen bg-gray-100 text-black">
+    <main className="p-4 sm:p-6 lg:p-8 bg-gray-100 min-h-screen text-black">
 
-      {/* PAGE HEADER */}
+      {/* HEADER */}
 
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Members Dashboard</h1>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+
+        <h1 className="text-2xl sm:text-3xl font-bold">
+          Members Dashboard
+        </h1>
 
         <button
           onClick={exportExcel}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow w-full sm:w-auto"
         >
           Export Excel
         </button>
+
       </div>
 
       {/* DASHBOARD CARDS */}
 
-      <div className="grid grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
 
-        <div className="bg-white shadow rounded-xl p-6">
+        <div className="bg-white shadow rounded-xl p-5">
           <p className="text-gray-500">Total Members</p>
-          <h2 className="text-3xl font-bold">{totalMembers}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold">{totalMembers}</h2>
         </div>
 
-        <div className="bg-white shadow rounded-xl p-6">
+        <div className="bg-white shadow rounded-xl p-5">
           <p className="text-yellow-600">Pending</p>
-          <h2 className="text-3xl font-bold">{pendingMembers}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold">{pendingMembers}</h2>
         </div>
 
-        <div className="bg-white shadow rounded-xl p-6">
+        <div className="bg-white shadow rounded-xl p-5">
           <p className="text-green-600">Approved</p>
-          <h2 className="text-3xl font-bold">{approvedMembers}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold">{approvedMembers}</h2>
         </div>
 
-        <div className="bg-white shadow rounded-xl p-6">
+        <div className="bg-white shadow rounded-xl p-5">
           <p className="text-red-600">Rejected</p>
-          <h2 className="text-3xl font-bold">{rejectedMembers}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold">{rejectedMembers}</h2>
         </div>
 
       </div>
 
       {/* SEARCH + FILTER */}
 
-      <div className="flex gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row gap-3 mb-6">
 
         <input
           placeholder="Search phone number..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-64"
+          className="border rounded-lg px-3 py-2 w-full sm:w-64"
         />
 
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="border rounded-lg px-3 py-2"
+          className="border rounded-lg px-3 py-2 w-full sm:w-auto"
         >
           <option value="all">All Status</option>
           <option value="pending">Pending</option>
@@ -197,18 +187,18 @@ export default function Admin() {
 
       {/* TABLE */}
 
-      <div className="bg-white shadow rounded-xl overflow-hidden">
+      <div className="bg-white shadow rounded-xl overflow-x-auto">
 
-        <table className="w-full">
+        <table className="w-full min-w-[700px]">
 
           <thead className="bg-gray-100 text-left">
             <tr>
-              <th className="p-4">Name</th>
-              <th className="p-4">Phone</th>
-              <th className="p-4">District</th>
-              <th className="p-4">Screenshot</th>
-              <th className="p-4">Status</th>
-              <th className="p-4">Actions</th>
+              <th className="p-3 sm:p-4">Name</th>
+              <th className="p-3 sm:p-4">Phone</th>
+              <th className="p-3 sm:p-4">District</th>
+              <th className="p-3 sm:p-4">Screenshot</th>
+              <th className="p-3 sm:p-4">Status</th>
+              <th className="p-3 sm:p-4">Actions</th>
             </tr>
           </thead>
 
@@ -218,11 +208,11 @@ export default function Admin() {
 
               <tr key={m.id} className="border-t hover:bg-gray-50">
 
-                <td className="p-4">{m.name}</td>
-                <td className="p-4">{m.phone}</td>
-                <td className="p-4">{m.district}</td>
+                <td className="p-3 sm:p-4">{m.name}</td>
+                <td className="p-3 sm:p-4">{m.phone}</td>
+                <td className="p-3 sm:p-4">{m.district}</td>
 
-                <td className="p-4">
+                <td className="p-3 sm:p-4">
                   <button
                     onClick={() => setSelectedImage(m.payment_screenshot)}
                     className="text-blue-600 hover:underline"
@@ -231,8 +221,7 @@ export default function Admin() {
                   </button>
                 </td>
 
-                <td className="p-4">
-
+                <td className="p-3 sm:p-4">
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-medium ${badge(
                       m.payment_status
@@ -240,10 +229,9 @@ export default function Admin() {
                   >
                     {m.payment_status}
                   </span>
-
                 </td>
 
-                <td className="p-4 space-x-2">
+                <td className="p-3 sm:p-4 flex flex-wrap gap-2">
 
                   <button
                     disabled={m.payment_status === "approved"}
@@ -275,7 +263,7 @@ export default function Admin() {
 
       {/* PAGINATION */}
 
-      <div className="flex justify-center gap-2 mt-6">
+      <div className="flex flex-wrap justify-center gap-2 mt-6">
 
         {Array.from({ length: totalPages }, (_, i) => (
 
@@ -295,13 +283,13 @@ export default function Admin() {
 
       </div>
 
-      {/* SCREENSHOT MODAL */}
+      {/* MODAL */}
 
       {selectedImage && (
 
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
 
-          <div className="bg-white p-4 rounded-xl relative max-w-xl">
+          <div className="bg-white p-4 rounded-xl relative max-w-lg w-full">
 
             <button
               onClick={() => setSelectedImage(null)}
@@ -312,7 +300,7 @@ export default function Admin() {
 
             <img
               src={selectedImage}
-              className="max-h-[80vh] rounded"
+              className="max-h-[80vh] w-full object-contain rounded"
             />
 
           </div>
