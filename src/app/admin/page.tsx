@@ -130,7 +130,7 @@ export default function Admin() {
   };
 
   return (
-    <main className="p-8 bg-gray-50 min-h-screen">
+    <main className="p-8 bg-gray-50 min-h-screen bg-gray-100 text-black">
 
       {/* PAGE HEADER */}
 

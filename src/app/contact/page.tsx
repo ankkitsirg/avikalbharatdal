@@ -1,6 +1,6 @@
 export default function ContactPage() {
   return (
-    <main className="p-10 max-w-4xl mx-auto">
+    <main className="p-10 max-w-4xl mx-auto bg-gray-100">
       <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
 
       {/* Address Section */}

@@ -26,10 +26,10 @@ export default function Login() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-100">
+    <main className="min-h-screen flex items-center justify-center bg-gray-100 text-black">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-md w-96 space-y-6"
+        className="bg-white  p-8 rounded-lg shadow-md w-96 space-y-6"
       >
         <h1 className="text-2xl font-bold text-center">Admin Login</h1>
 
