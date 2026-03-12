@@ -1,95 +1,134 @@
+"use client";
+
 import Image from "next/image";
 
-const teamMembers = [
-  {
-    name: "Shri Diwakar Prakash Tiwari",
-    designation:"President",
-    address: "Lucknow, India",
-    image: "/team/member1.jpg",
-  },
-  {
-    name: "Shri Vimal Kumar Shukla",
-    designation: "Vice President",
-    address: "Lucknow, Uttar Pradesh",
-    image: "/team/member2.jpg",
-  },
-  {
-    name: "Smt Supriya Tiwari",
-    designation: "Vice President",
-    address: "Lucknow, Uttar Pradesh",
-    image: "/team/member2.jpg",
-  },
-  {
-    name: "Shri Keleshwari Pratap Singh",
-    designation: "General Secretary",
-    address: "Balrampur, Uttar Pradesh",
-    image: "/team/member3.jpg",
-  },
-   {
-    name: "Shri Pramod Kumar Kashyap",
-    designation: "General Secretary",
-    address: "Lakhimpur Kheri, Uttar Pradesh",
-    image: "/team/member3.jpg",
-  },
-  {
-    name: "Shri Mahendra Pratap",
-    designation: "General Secretary",
-    address: "Lucknow, Uttar Pradesh",
-    image: "/team/member3.jpg",
-  },
-  {
-    name: "Shri Sudhir Kumar Gupta",
-    designation: "Treasurer",
-    address: "Lucknow, Uttar Pradesh",
-    image: "/team/member4.jpg",
-  }
-  
- 
+
+const team = [
+    {
+        name: "Shri Diwakar Prakash Tiwari",
+        designation: "President",
+        address: "Lucknow, India",
+        image: "",
+    },
+    {
+        name: "Shri Vimal Kumar Shukla",
+        designation: "Vice President",
+        address: "Lucknow, Uttar Pradesh",
+        image: "",
+    },
+    {
+        name: "Smt Supriya Tiwari",
+        designation: "Vice President",
+        address: "Lucknow, Uttar Pradesh",
+        image: "",
+    },
+    {
+        name: "Shri Keleshwari Pratap Singh",
+        designation: "General Secretary",
+        address: "Balrampur, Uttar Pradesh",
+        image: "",
+    },
+    {
+        name: "Shri Pramod Kumar Kashyap",
+        designation: "General Secretary",
+        address: "Lakhimpur Kheri, Uttar Pradesh",
+        image: "",
+    },
+    {
+        name: "Shri Mahendra Pratap",
+        designation: "General Secretary",
+        address: "Lucknow, Uttar Pradesh",
+        image: "",
+    },
+    {
+        name: "Shri Sudhir Kumar Gupta",
+        designation: "Treasurer",
+        address: "Lucknow, Uttar Pradesh",
+        image: "",
+    }
+
+
 ];
 
 export default function TeamPage() {
-  return (
-    <main className="p-6 lg:p-10 bg-gray-100 min-h-screen">
+    return (
+        <main className="min-h-screen bg-gray-50">
 
-      <h1 className="text-3xl font-bold text-center mb-10">
-        Our Team
-      </h1>
+            {/* HERO SECTION */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <section className="text-center py-16 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white">
+                <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+                    Meet Our Leadership
+                </h1>
 
-        {teamMembers.map((member, index) => (
+                <p className="max-w-2xl mx-auto text-lg opacity-90">
+                    Our dedicated team works tirelessly to build strong communities,
+                    empower people, and lead initiatives that bring meaningful change.
+                </p>
+            </section>
 
-          <div
-            key={index}
-            className="bg-white shadow-lg rounded-xl p-5 text-center"
-          >
+            {/* TEAM GRID */}
 
-            <Image
-              src={member.image}
-              alt={member.name}
-              width={120}
-              height={120}
-              className="rounded-full mx-auto mb-4 object-cover"
-            />
+            <section className="max-w-7xl mx-auto px-6 py-16">
 
-            <h2 className="text-lg font-bold">
-              {member.name}
-            </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
 
-            <p className="text-orange-600 font-medium">
-              {member.designation}
-            </p>
+                    {team.map((member, index) => (
 
-            <p className="text-gray-500 text-sm mt-1">
-              {member.address}
-            </p>
+                        <div
+                            key={index}
+                            className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden"
+                        >
 
-          </div>
+                            {/* IMAGE */}
 
-        ))}
+                            <div className="relative h-60 w-full overflow-hidden">
 
-      </div>
+                                <Image
+                                    src={member.image || "/anonymous_male.jpg"}
+                                    alt={member.name}
+                                    fill
+                                    className="object-cover group-hover:scale-110 transition duration-500"
+                                />
 
-    </main>
-  );
+                            </div>
+
+                            {/* INFO */}
+
+                            <div className="p-6 text-center">
+
+                                <h3 className="text-xl font-bold text-gray-800">
+                                    {member.name}
+                                </h3>
+
+                                <p className="text-orange-600 font-semibold mt-1">
+                                    {member.designation}
+                                </p>
+
+                                <p className="text-gray-500 text-sm mt-2">
+                                    {member.address}
+                                </p>
+
+                                {/* SOCIAL ICONS */}
+
+                                <div className="flex justify-center gap-4 mt-4 opacity-70">
+
+                                    <span className="cursor-pointer hover:text-blue-600">🌐</span>
+                                    <span className="cursor-pointer hover:text-blue-500">🐦</span>
+                                    <span className="cursor-pointer hover:text-blue-700">in</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    ))}
+
+                </div>
+
+            </section>
+
+        </main>
+    );
 }
