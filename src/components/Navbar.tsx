@@ -16,6 +16,7 @@ export default function Navbar() {
       <div className="space-x-6 font-medium">
         <Link href="/" className="hover:text-orange-600 text-black">Home</Link>
         <Link href="/about" className="hover:text-orange-600 text-black">About</Link>
+         <Link href="/team" className="hover:text-orange-600 text-black">Team</Link>
         <Link href="/join" className="hover:text-orange-600 text-black">Join</Link>
         <Link href="/contact" className="hover:text-orange-600 text-black">Contact</Link>
         <Link href="/login" className="hover:text-orange-600 text-black">Login</Link>
