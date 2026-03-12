@@ -2,47 +2,49 @@ import Image from "next/image";
 
 const teamMembers = [
   {
-    name: "Rajesh Kumar",
-    designation: "National President",
-    address: "Delhi, India",
+    name: "Shri Diwakar Prakash Tiwari",
+    designation:"President",
+    address: "Lucknow, India",
     image: "/team/member1.jpg",
   },
   {
-    name: "Amit Sharma",
+    name: "Shri Vimal Kumar Shukla",
     designation: "Vice President",
     address: "Lucknow, Uttar Pradesh",
     image: "/team/member2.jpg",
   },
   {
-    name: "Sanjay Verma",
+    name: "Smt Supriya Tiwari",
+    designation: "Vice President",
+    address: "Lucknow, Uttar Pradesh",
+    image: "/team/member2.jpg",
+  },
+  {
+    name: "Shri Keleshwari Pratap Singh",
     designation: "General Secretary",
-    address: "Jaipur, Rajasthan",
+    address: "Balrampur, Uttar Pradesh",
+    image: "/team/member3.jpg",
+  },
+   {
+    name: "Shri Pramod Kumar Kashyap",
+    designation: "General Secretary",
+    address: "Lakhimpur Kheri, Uttar Pradesh",
     image: "/team/member3.jpg",
   },
   {
-    name: "Rohit Singh",
+    name: "Shri Mahendra Pratap",
+    designation: "General Secretary",
+    address: "Lucknow, Uttar Pradesh",
+    image: "/team/member3.jpg",
+  },
+  {
+    name: "Shri Sudhir Kumar Gupta",
     designation: "Treasurer",
-    address: "Patna, Bihar",
+    address: "Lucknow, Uttar Pradesh",
     image: "/team/member4.jpg",
-  },
-  {
-    name: "Vikas Gupta",
-    designation: "State Coordinator",
-    address: "Bhopal, Madhya Pradesh",
-    image: "/team/member5.jpg",
-  },
-  {
-    name: "Anil Yadav",
-    designation: "District Head",
-    address: "Varanasi, Uttar Pradesh",
-    image: "/team/member6.jpg",
-  },
-  {
-    name: "Deepak Mishra",
-    designation: "Youth President",
-    address: "Kanpur, Uttar Pradesh",
-    image: "/team/member7.jpg",
-  },
+  }
+  
+ 
 ];
 
 export default function TeamPage() {
