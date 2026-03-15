@@ -10,6 +10,23 @@ export default function Admin() {
   const [stateFilter, setStateFilter] = useState("all");
   const [districtFilter, setDistrictFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
+
+  const stateCounts = members.reduce<Record<string, number>>((acc, m) => {
+  if (!acc[m.state]) {
+    acc[m.state] = 0;
+  }
+  acc[m.state]++;
+  return acc;
+}, {});
+
+const stateStats = Object.entries(stateCounts)
+  .map(([state, count]) => ({
+    state,
+    count
+  }))
+  .sort((a, b) => b.count - a.count);
+
+  
   const states = [...new Set(members.map((m) => m.state))];
 
   const districts = [
@@ -204,6 +221,38 @@ export default function Admin() {
         </div>
 
       </div>
+
+      {/* distribution   */}
+      <section className="mb-10">
+
+        <h2 className="text-xl font-bold mb-4">
+          India Membership Distribution
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+
+          {stateStats.map((s) => (
+
+            <div
+              key={s.state}
+              className="bg-white shadow rounded-lg p-4 text-center"
+            >
+
+              <p className="text-gray-500 text-sm">
+                {s.state}
+              </p>
+
+              <p className="text-2xl font-bold text-orange-600">
+                {s.count}
+              </p>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </section>
 
       {/* SEARCH + FILTER */}
 
