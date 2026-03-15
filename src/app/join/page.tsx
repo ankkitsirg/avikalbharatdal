@@ -1,14 +1,19 @@
 "use client";
 
 import { useState } from "react";
-
+import districtsData from "@/data/indiaStateDistrict.json";
 export default function Join() {
 
   const [form, setForm] = useState({
     name: "",
     phone: "",
     email: "",
+    state: "",
     district: "",
+    address: "",
+    voter_id: "",
+    membership_type: "general",
+    membership_plan: "annual",
     volunteer: false,
   });
 
@@ -18,10 +23,18 @@ export default function Join() {
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
-    setForm({
-      ...form,
-      [name]: type === "checkbox" ? checked : value,
-    });
+    if (name === "state") {
+      setForm({
+        ...form,
+        state: value,
+        district: "",
+      });
+    } else {
+      setForm({
+        ...form,
+        [name]: type === "checkbox" ? checked : value,
+      });
+    }
   };
 
   const handleFileChange = (e: any) => {
@@ -76,7 +89,12 @@ export default function Join() {
         name: "",
         phone: "",
         email: "",
+        state: "",
         district: "",
+        address: "",
+        voter_id: "",
+        membership_plan: "annual",
+        membership_type: "general",
         volunteer: false,
       });
 
@@ -86,6 +104,26 @@ export default function Join() {
     }
   };
 
+  const stateDistrictMap = districtsData.reduce((acc: any, item: any) => {
+    const state = item.StateName;
+    const district = item["DistrictName(InEnglish)"];
+
+    if (!acc[state]) {
+      acc[state] = [];
+    }
+
+    acc[state].push(district);
+
+    return acc;
+  }, {});
+  const states = Object.keys(stateDistrictMap);
+
+  let fee = 10;
+
+  if (form.membership_type === "general" && form.membership_plan === "annual") fee = 10;
+  if (form.membership_type === "general" && form.membership_plan === "lifetime") fee = 1200;
+  if (form.membership_type === "active" && form.membership_plan === "annual") fee = 100;
+  if (form.membership_type === "active" && form.membership_plan === "lifetime") fee = 2100;
   return (
     <main className="py-16 px-6 md:px-20 bg-gray-100 text-black">
       <h1 className="text-4xl font-bold text-center mb-10">
@@ -123,23 +161,60 @@ export default function Join() {
         <input
           type="email"
           name="email"
-          placeholder="Email Address"
+          placeholder="Email ID"
           value={form.email}
           onChange={handleChange}
           className="w-full border p-3 rounded"
         />
+        {/* State */}
+        <select
+          name="state"
+          value={form.state}
+          onChange={handleChange}
+          className="w-full border p-3 rounded"
+        >
+          <option value="">Select State</option>
 
+          {states.map((state) => (
+            <option key={state} value={state}>
+              {state}
+            </option>
+          ))}
+        </select>
         {/* District */}
-        <input
-          type="text"
+        <select
           name="district"
-          placeholder="District"
-          required
           value={form.district}
           onChange={handleChange}
           className="w-full border p-3 rounded"
-        />
+        >
+          <option value="">Select District</option>
 
+          {form.state &&
+            stateDistrictMap[form.state].map((district: string) => (
+              <option key={district} value={district}>
+                {district}
+              </option>
+            ))}
+        </select>
+        {/* Address */}
+        <input
+          type="text"
+          name="address"
+          placeholder="Address"
+          value={form.address}
+          onChange={handleChange}
+          className="w-full border p-3 rounded"
+        />
+        {/* Voter Id */}
+        <input
+          type="text"
+          name="voter_id"
+          placeholder="Voter ID"
+          value={form.voter_id}
+          onChange={handleChange}
+          className="w-full border p-3 rounded"
+        />
         {/* Volunteer */}
         <label className="flex items-center space-x-2">
           <input
@@ -153,10 +228,33 @@ export default function Join() {
 
         {/* QR Payment Section */}
         <div className="text-center space-y-4">
-          <h2 className="text-lg font-semibold">
-            Pay Membership Fee (₹100)
-          </h2>
+          <label className="block font-medium">Membership Type</label>
 
+          <select
+            name="membership_type"
+            value={form.membership_type}
+            onChange={handleChange}
+            className="w-full border p-3 rounded"
+          >
+            <option value="general">General Member</option>
+            <option value="active">Active Member</option>
+          </select>
+
+          <label className="block font-medium">Membership Plan</label>
+
+          <select
+            name="membership_plan"
+            value={form.membership_plan}
+            onChange={handleChange}
+            className="w-full border p-3 rounded"
+          >
+            <option value="annual">Annual</option>
+            <option value="lifetime">Lifetime</option>
+          </select>
+
+          <h2 className="text-lg font-semibold">
+            Pay Membership Fee (₹{fee})
+          </h2>
           <p className="text-gray-600 text-sm">
             Scan the QR code below and upload payment screenshot
           </p>

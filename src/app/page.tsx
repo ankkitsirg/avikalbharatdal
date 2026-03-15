@@ -37,10 +37,10 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Footer */}
+      {/* Footer
       <footer className="bg-black text-white text-center py-6">
         © {new Date().getFullYear()} Avikal Bharat Dal. All rights reserved.
-      </footer>
+      </footer> */}
 
     </main>
   );
