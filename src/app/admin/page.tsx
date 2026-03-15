@@ -7,6 +7,18 @@ import { saveAs } from "file-saver";
 export default function Admin() {
 
   const [members, setMembers] = useState<any[]>([]);
+  const [stateFilter, setStateFilter] = useState("all");
+  const [districtFilter, setDistrictFilter] = useState("all");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const states = [...new Set(members.map((m) => m.state))];
+
+  const districts = [
+    ...new Set(
+      members
+        .filter((m) => stateFilter === "all" || m.state === stateFilter)
+        .map((m) => m.district)
+    ),
+  ];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const [search, setSearch] = useState("");
@@ -54,7 +66,22 @@ export default function Admin() {
     const statusMatch =
       filter === "all" || m.payment_status === filter;
 
-    return phoneMatch && statusMatch;
+    const stateMatch =
+      stateFilter === "all" || m.state === stateFilter;
+
+    const districtMatch =
+      districtFilter === "all" || m.district === districtFilter;
+
+    const typeMatch =
+      typeFilter === "all" || m.membership_type === typeFilter;
+
+    return (
+      phoneMatch &&
+      statusMatch &&
+      stateMatch &&
+      districtMatch &&
+      typeMatch
+    );
   });
 
   const totalPages = Math.ceil(filteredMembers.length / perPage);
@@ -78,13 +105,21 @@ export default function Admin() {
     (m) => m.payment_status === "rejected"
   ).length;
 
+  const suspendedMembers = members.filter(
+    (m) => m.payment_status === "suspended"
+  ).length;
+
   const exportExcel = () => {
 
     const data = members.map((m) => ({
+      MemberID: m.member_code,
       Name: m.name,
       Phone: m.phone,
+      State: m.state,
       District: m.district,
-      Status: m.payment_status,
+      MembershipType: m.membership_type,
+      Plan: m.membership_plan,
+      Status: m.payment_status
     }));
 
     const ws = XLSX.utils.json_to_sheet(data);
@@ -111,6 +146,8 @@ export default function Admin() {
 
     if (status === "pending")
       return "bg-yellow-100 text-yellow-700";
+    if (status === "suspended")
+      return "bg-gray-200 text-gray-700";
 
     return "bg-red-100 text-red-700";
   };
@@ -159,28 +196,77 @@ export default function Admin() {
           <h2 className="text-2xl sm:text-3xl font-bold">{rejectedMembers}</h2>
         </div>
 
+        <div className="bg-white shadow rounded-xl p-5">
+          <p className="text-gray-600">Suspended</p>
+          <h2 className="text-2xl sm:text-3xl font-bold">
+            {suspendedMembers}
+          </h2>
+        </div>
+
       </div>
 
       {/* SEARCH + FILTER */}
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+      <div className="flex flex-wrap gap-3 mb-6">
 
+        {/* Search */}
         <input
           placeholder="Search phone number..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full sm:w-64"
+          className="border rounded-lg px-3 py-2"
         />
 
+        {/* Payment Status */}
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="border rounded-lg px-3 py-2 w-full sm:w-auto"
+          className="border rounded-lg px-3 py-2"
         >
           <option value="all">All Status</option>
           <option value="pending">Pending</option>
           <option value="approved">Approved</option>
           <option value="rejected">Rejected</option>
+          <option value="suspended">Suspended</option>
+        </select>
+
+        {/* State Filter */}
+        <select
+          value={stateFilter}
+          onChange={(e) => {
+            setStateFilter(e.target.value);
+            setDistrictFilter("all");
+          }}
+          className="border rounded-lg px-3 py-2"
+        >
+          <option value="all">All States</option>
+          {states.map((s) => (
+            <option key={s}>{s}</option>
+          ))}
+        </select>
+
+        {/* District Filter */}
+        <select
+          value={districtFilter}
+          onChange={(e) => setDistrictFilter(e.target.value)}
+          className="border rounded-lg px-3 py-2"
+        >
+          <option value="all">All Districts</option>
+          {districts.map((d) => (
+            <option key={d}>{d}</option>
+          ))}
+        </select>
+
+        {/* Membership Type */}
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+          className="border rounded-lg px-3 py-2"
+        >
+          <option value="all">All Membership</option>
+          <option value="general">General</option>
+          <option value="worker">Active</option>
+
         </select>
 
       </div>
@@ -193,9 +279,14 @@ export default function Admin() {
 
           <thead className="bg-gray-100 text-left">
             <tr>
+              <th className="p-3 sm:p-4">Member ID</th>
               <th className="p-3 sm:p-4">Name</th>
               <th className="p-3 sm:p-4">Phone</th>
+              <th className="p-3 sm:p-4">State</th>
               <th className="p-3 sm:p-4">District</th>
+              <th className="p-3 sm:p-4">Type</th>
+              <th className="p-3 sm:p-4">Plan</th>
+              <th className="p-3 sm:p-4">Voter ID</th>
               <th className="p-3 sm:p-4">Screenshot</th>
               <th className="p-3 sm:p-4">Status</th>
               <th className="p-3 sm:p-4">Actions</th>
@@ -208,9 +299,15 @@ export default function Admin() {
 
               <tr key={m.id} className="border-t hover:bg-gray-50">
 
-                <td className="p-3 sm:p-4">{m.name}</td>
-                <td className="p-3 sm:p-4">{m.phone}</td>
-                <td className="p-3 sm:p-4">{m.district}</td>
+
+                <td className="font-semibold text-orange-600">{m.member_code}</td>
+                <td>{m.name}</td>
+                <td>{m.phone}</td>
+                <td>{m.state}</td>
+                <td>{m.district}</td>
+                <td>{m.membership_type}</td>
+                <td>{m.membership_plan}</td>
+                <td>{m.voter_id || "-"}</td>
 
                 <td className="p-3 sm:p-4">
                   <button
@@ -248,6 +345,13 @@ export default function Admin() {
                   >
                     Reject
                   </button>
+                  <button
+                    disabled={m.payment_status === "suspended"}
+                    onClick={() => updateStatus(m.id, "suspended")}
+                    className="bg-gray-700 text-white px-3 py-1 rounded"
+                  >
+                    Suspend
+                  </button>
 
                 </td>
 
@@ -270,11 +374,10 @@ export default function Admin() {
           <button
             key={i}
             onClick={() => setPage(i + 1)}
-            className={`px-3 py-1 rounded ${
-              page === i + 1
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200"
-            }`}
+            className={`px-3 py-1 rounded ${page === i + 1
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200"
+              }`}
           >
             {i + 1}
           </button>
