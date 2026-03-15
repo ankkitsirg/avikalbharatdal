@@ -37,7 +37,7 @@ export default function Navbar() {
               Avikal Bharat Dal
             </h1>
             <p className="text-xs text-gray-500">
-              Serving the Nation
+              !!अखंड भारत!!समृद्ध भारत!!
             </p>
           </div>
 
