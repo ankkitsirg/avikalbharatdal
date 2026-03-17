@@ -70,12 +70,18 @@ export default function Navbar() {
           <select
             onChange={(e) => {
               const lang = e.target.value;
-              const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
 
-              if (select) {
-                select.value = lang;
-                select.dispatchEvent(new Event("change"));
-              }
+              const interval = setInterval(() => {
+                const select = document.querySelector(
+                  ".goog-te-combo"
+                ) as HTMLSelectElement;
+
+                if (select) {
+                  select.value = lang;
+                  select.dispatchEvent(new Event("change"));
+                  clearInterval(interval);
+                }
+              }, 500);
             }}
             className="border px-3 py-1 rounded"
           >

@@ -8,8 +8,8 @@ export default function ContactPage() {
         <h2 className="text-xl font-semibold mb-2">Our Address</h2>
         <p>Avikal Bharat Dal</p>
         <p>First Floor, Shipra Complex,Amrapali Market </p>
-        <p>A-Block , Indira Nagar</p>
-        <p>Lucknow , Uttar Pradesh, India</p>
+        <p>B-Block , Indira Nagar</p>
+        <p>Lucknow , Uttar Pradesh, Bharat</p>
         <p>Phone: +91-9455030000,+91-8765136901</p>
        
       </section>
