@@ -30,8 +30,8 @@ export default function Navbar() {
            <Image
             src="/logo.png"
             alt="ABD Logo"
-            width={50}
-            height={50}
+            width={75}
+            height={75}
           />
           </Link>
          
