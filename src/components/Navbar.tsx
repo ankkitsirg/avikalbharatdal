@@ -37,7 +37,7 @@ export default function Navbar() {
               Avikal Bharat Dal
             </h1>
             <p className="text-xs text-gray-500">
-              !!अखंड भारत!!समृद्ध भारत!!
+              !!अखंड भारत  !  समृद्ध भारत!!
             </p>
           </div>
 
@@ -67,7 +67,25 @@ export default function Navbar() {
         {/* RIGHT SIDE BUTTONS */}
 
         <div className="hidden md:flex items-center gap-4">
+          <select
+            onChange={(e) => {
+              const lang = e.target.value;
+              const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
 
+              if (select) {
+                select.value = lang;
+                select.dispatchEvent(new Event("change"));
+              }
+            }}
+            className="border px-3 py-1 rounded"
+          >
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+            <option value="ur">اردو</option>
+            <option value="bn">বাংলা</option>
+          </select>
           <Link
             href="/login"
             className="text-gray-700 hover:text-orange-600"
@@ -100,9 +118,8 @@ export default function Navbar() {
       {/* MOBILE DRAWER */}
 
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-full"
+          }`}
       >
 
         <div className="p-6">
