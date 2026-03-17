@@ -9,11 +9,13 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const menu = [
-    { name: "Home", link: "/" },
-    { name: "About", link: "/about" },
-    { name: "Team", link: "/team" },
-    { name: "Join", link: "/join" },
-    { name: "Contact", link: "/contact" },
+    // { name: "Home", link: "/" },
+    { name: "About Us", link: "/about" },
+    { name: "Our Team", link: "/team" },
+    { name: "Join Us", link: "/join" },
+    { name: "Our Agenda", link: "/agenda" },
+    { name: "Contact Us", link: "/contact" }
+   
   ];
 
   return (
@@ -24,13 +26,15 @@ export default function Navbar() {
         {/* LOGO + PARTY NAME */}
 
         <div className="flex items-center gap-3">
-
-          <Image
+          <Link href="/">
+           <Image
             src="/logo.png"
             alt="ABD Logo"
             width={50}
             height={50}
           />
+          </Link>
+         
 
           <div className="leading-tight">
             <h1 className="font-bold text-lg text-black">
@@ -83,7 +87,7 @@ export default function Navbar() {
                 }
               }, 500);
             }}
-            className="border px-3 py-1 rounded"
+            className="border px-3 py-1 rounded text-gray-500"
           >
             <option value="en">English</option>
             <option value="hi">हिन्दी</option>
