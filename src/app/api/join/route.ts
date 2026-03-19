@@ -18,7 +18,9 @@ export async function POST(req: Request) {
       payment_screenshot
     } = await req.json();
 
-    const year = new Date().getFullYear();
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // 01–12
 
     // Insert first
     const result = await pool.query(
@@ -46,7 +48,9 @@ export async function POST(req: Request) {
     const id = result.rows[0].id;
 
     // Generate member ID
-    const memberCode = `ABD-${year}-${String(id).padStart(5,"0")}`;
+    const stateCode = state.substring(0, 2).toUpperCase();
+    const districtCode = district.substring(0, 3).toUpperCase();
+    const memberCode = `ABD-${stateCode}-${districtCode}-${year}-${month}-${String(id).padStart(5, "0")}`;
 
     await pool.query(
       `UPDATE members SET member_code=$1 WHERE id=$2`,
@@ -58,7 +62,7 @@ export async function POST(req: Request) {
       member_id: memberCode
     });
 
-  } catch (error:any) {
+  } catch (error: any) {
 
     if (error.code === "23505") {
       return NextResponse.json(
