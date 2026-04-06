@@ -16,12 +16,12 @@ const team = [
         address: "Lucknow, Uttar Pradesh",
         image: "",
     },
-    {
-        name: "Smt Supriya Tiwari",
-        designation: "Vice President",
-        address: "Lucknow, Uttar Pradesh",
-        image: "",
-    },
+    // {
+    //     name: "Smt Supriya Tiwari",
+    //     designation: "Vice President",
+    //     address: "Lucknow, Uttar Pradesh",
+    //     image: "",
+    // },
     {
         name: "Shri Keleshwari Pratap Singh",
         designation: "General Secretary",
