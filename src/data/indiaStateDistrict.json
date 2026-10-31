@@ -1,0 +1,30 @@
+[
+  {
+    "StateName": "Uttar Pradesh",
+    "DistrictName(InEnglish)": "Lucknow"
+  },
+  {
+    "StateName": "Uttar Pradesh",
+    "DistrictName(InEnglish)": "Kanpur Nagar"
+  },
+  {
+    "StateName": "Uttar Pradesh",
+    "DistrictName(InEnglish)": "Varanasi"
+  },
+  {
+    "StateName": "Maharashtra",
+    "DistrictName(InEnglish)": "Mumbai City"
+  },
+  {
+    "StateName": "Maharashtra",
+    "DistrictName(InEnglish)": "Pune"
+  },
+  {
+    "StateName": "Karnataka",
+    "DistrictName(InEnglish)": "Bengaluru Urban"
+  },
+  {
+    "StateName": "Karnataka",
+    "DistrictName(InEnglish)": "Mysuru"
+  }
+]
