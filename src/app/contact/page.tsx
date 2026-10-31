@@ -10,7 +10,8 @@ export default function ContactPage() {
         <p>First Floor, Shipra Complex,Amrapali Market </p>
         <p>B-Block , Indira Nagar</p>
         <p>Lucknow , Uttar Pradesh, Bharat</p>
-        <p>Phone: +91-9455030000,+91-8765136901</p>
+        <p>Phone: 0522-4232888 ,+91-9005627000</p>
+        <p>Email: avikalbharatdal@gmail.com</p>
        
       </section>
 
