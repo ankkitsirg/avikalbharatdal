@@ -12,7 +12,7 @@ export default function Navbar() {
     // { name: "Home", link: "/" },
     { name: "About Us", link: "/about" },
     { name: "Our Team", link: "/team" },
-    { name: "Join Us", link: "/join" },
+    // { name: "Join Us", link: "/join" },
     { name: "Our Agenda", link: "/agenda" },
     { name: "Contact Us", link: "/contact" }
    
